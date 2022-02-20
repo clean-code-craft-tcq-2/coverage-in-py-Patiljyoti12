@@ -10,9 +10,9 @@ def infer_breach(value, lowerLimit, upperLimit):
 def classify_temperature_breach(value,coolingType):
     lowerLimit=0
     coolingType_dict={"PASSIVE":35,"HI_ACTIVE":45,"MED_ACTIVE":40}    #Cooling Type classification
-    for type in coolingType_dict.keys():
-        if type==coolingType:
-            upperLimit=coolingType_dict[type]
+    for cool_type in coolingType_dict.keys():
+        if cool_type==coolingType:
+            upperLimit=coolingType_dict[cool_type]
     breachType=infer_breach(value,lowerLimit,upperLimit)
     return breachType
     
