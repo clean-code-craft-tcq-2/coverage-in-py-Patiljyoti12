@@ -16,17 +16,21 @@ def classify_temperature_breach(value,coolingType):
     breachType=infer_breach(value,lowerLimit,upperLimit)
     return breachType
     
-def check_and_alert(alertTarget,breachType):
+
+  def check_and_alert(alertTarget,value,coolingType):
+  breachType=classify_temperature_breach(value,coolingType)
   if alertTarget == 'TO_CONTROLLER':
     send_to_controller(breachType)
   elif alertTarget == 'TO_EMAIL':
     send_to_email(breachType)
 
-def send_to_controller(breachType):
+#Send to Controller
+  def send_to_controller(breachType):
   header = 0xfeed
   print(f'{header}, {breachType}')
 
-def send_to_email(breachType):
+#email notification based on breach type
+  def send_to_email(breachType):
   recepient = "a.b@c.com"
   if breachType == 'TOO_LOW':
     print(f'To: {recepient}')
