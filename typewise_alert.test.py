@@ -39,6 +39,24 @@ class TypewiseTest(unittest.TestCase):
     self.assertTrue(typewise_alert.classify_temperature_breach(-10,'MED_ACTIVE')=='TOO_LOW')
     self.assertTrue(typewise_alert.classify_temperature_breach(120,'MED_ACTIVE')=='TOO_HIGH')
     
+  def test_check_and_alert_to_controller(self):
+    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER',-19,"PASSIVE") == f'{0xfeed}, TOO_LOW')
+    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER', 120, "PASSIVE")==f'{0xfeed}, TOO_HIGH')
+    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER', 10, "PASSIVE")==f'{0xfeed}, NORMAL')
+    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER',- 20, "HI_ACTIVE")==f'{0xfeed}, TOO_LOW')
+    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER', 160, "HI_ACTIVE")==f'{0xfeed}, TOO_HIGH')
+    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER', 30, "HI_ACTIVE")==f'{0xfeed}, NORMAL')
+    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER', -5, "MED_ACTIVE")==f'{0xfeed}, TOO_LOW')
+    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER', 180, "MED_ACTIVE")==f'{0xfeed}, TOO_HIGH')
+    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER',15, "MED_ACTIVE")==f'{0xfeed}, NORMAL')
+
+  def test_check_and_alert_trigger_email_notification(self):
+    self.assertTrue(typewise_alert.check_and_alert('TO_EMAIL',-10,"PASSIVE") == f'To: a.b@c.com,Hi, the temperature is too low' )
+    self.assertTrue(typewise_alert.check_and_alert('TO_EMAIL',120,"PASSIVE") == f'To: a.b@c.com,Hi, the temperature is too high')
+   
+
+    
+    
     
     
 if __name__ == '__main__':
