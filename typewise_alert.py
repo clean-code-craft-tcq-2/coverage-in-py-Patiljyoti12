@@ -20,9 +20,10 @@ def classify_temperature_breach(value,coolingType):
 def check_and_alert(alertTarget,value,coolingType):
   breachType=classify_temperature_breach(value,coolingType)
   if alertTarget == 'TO_CONTROLLER':
-    send_to_controller(breachType)
+    message=send_to_controller(breachType)
   elif alertTarget == 'TO_EMAIL':
-    send_to_email(breachType)
+    message=send_to_email(breachType)
+  return message
 
 #Send to Controller
 def send_to_controller(breachType):
