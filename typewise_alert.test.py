@@ -35,7 +35,7 @@ class TypewiseTest(unittest.TestCase):
   def test_check_and_alert_to_controller(self):
     self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER',-19,"PASSIVE") == f'{0xfeed}, TOO_LOW')
     self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER',80,"PASSIVE") == f'{0xfeed}, TOO_HIGH')
-    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER',20,"PASSIVE") == f'{0xfeed}, TOO_NORMAL')
+    self.assertTrue(typewise_alert.check_and_alert('TO_CONTROLLER',20,"PASSIVE") == f'{0xfeed}, NORMAL')
     
   def test_check_and_alert_trigger_email_notification(self):
     self.assertTrue(typewise_alert.check_and_alert('TO_EMAIL',-10,"PASSIVE") == f'To: a.b@c.com,Hi, the temperature is too low' )
